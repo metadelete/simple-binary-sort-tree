@@ -4,7 +4,7 @@
 typedef struct TREE_NODE {
   struct TREE_NODE* right;
   struct TREE_NODE* left;
-  struct TREE_NODE* parent;
+  struct TREE_NODE* parent;//parent is not used for any node in a tree. it might be useful in some cases, but not in this program.
   int value;
 } TREE_NODE;
 
