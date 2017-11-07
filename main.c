@@ -8,14 +8,15 @@ typedef struct TREE_NODE {
   int value;
 } TREE_NODE;
 
-int MAX_NODE = 10;
+int MAX_NODE = 100;
 TREE_NODE *parent = NULL;
 TREE_NODE *crawler = NULL;
 TREE_NODE *trail = NULL;
 int kontrol = 0;
 
 void insert_node(TREE_NODE **node, int);
-static int _rand(){return rand()%20 + 1;}
+void list_values(TREE_NODE *node);
+static int _rand(){return rand()%1000 + 1;}
 int main()
 {
 	srand(time(NULL));
@@ -31,6 +32,10 @@ int main()
   		printf("%d\n", array[counter]);
   		counter++;
   	}
+	printf("\n\n\n");
+
+
+	// Binary Tree Process Begin
   	counter = 0;
   	while(counter < MAX_NODE) {
   		node = (TREE_NODE*)malloc(sizeof(TREE_NODE));
@@ -38,6 +43,15 @@ int main()
   		crawler = trail = parent;
   		counter++;
   	}
+  	// Binary Tree Process End
+
+
+  	crawler = parent;
+  	printf("%s\n","Begin process of listing");
+  	list_values(NULL);
+  	printf("%s\n","End process of listing");
+
+
   	printf("%s\n", "the end");
 }
 void insert_node(TREE_NODE **node, int value)
@@ -71,5 +85,36 @@ void insert_node(TREE_NODE **node, int value)
 				insert_node(&(crawler), value);
 			}
 		}		
+	}
+}
+void list_values(TREE_NODE *node)
+{
+	if(node == NULL) {
+		if(parent->left != NULL) {
+			list_values(parent->left);
+			printf("%d\n", parent->value);
+			if(parent->right != NULL ) {
+				list_values(parent->right);
+			}
+		} else {
+			printf("$d\n", parent->value);
+			if(parent->right != NULL) {
+				list_values(parent->right);
+			}
+		}
+		return;
+	}
+	if(node->left != NULL) {
+		list_values(node->left);
+		printf("%d\n", node->value);
+		if(node->right != NULL) {
+			list_values(node->right);
+		}
+	} else {
+		printf("%d\n", node->value);
+		if(node->right != NULL) {
+			list_values(node->right);
+
+		}
 	}
 }
